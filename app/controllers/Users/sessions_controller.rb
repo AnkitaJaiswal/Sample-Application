@@ -1,6 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
+  
   def create
-    # custom sign-in code
+    super do |resource|
+      BackgroundWorker.trigger(resource)
+    end
   end  
 # before_filter :configure_sign_in_params, only: [:create]
 
