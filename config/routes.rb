@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
    
-   
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -29,6 +29,12 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+  devise_scope :user do
+   get "sign_in", to: "devise/sessions#new"
+  end
+  devise_scope :user do
+   delete "/users/sign_out" => "devise/sessions#destroy"
+  end
   
 
   # Example resource route with sub-resources:
