@@ -1,11 +1,11 @@
 class UserTime < ActiveRecord::Base
-  validate :timezone_exists
+  
 
-private
+  validate :current_time_formate
 
-def timezone_exists
-  return if ActiveSupport::TimeZone[timezone].present?
-  errors.add(:timezone, "does not exist")
-end
-
+  def current_time_formate
+    valid = false if (current_time =~ /^\d{9}\:\d{9}\:\d{9}$/).nil?
+    valid = Time.strptime(current_time, '%T') rescue false unless valid == false
+    
+  end
 end

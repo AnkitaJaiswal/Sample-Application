@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :current_time %><br>
-    <%= f.time_select :current_time %>
+    <%= f.label :current_time, "*Current Time (HH:MM:SS)" %><br>
+    <%= f.text_field :current_time %>
   </div>
   <div class="actions">
     <%= f.submit %>
