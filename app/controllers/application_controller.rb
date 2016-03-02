@@ -11,11 +11,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private 
+
+  def current_user
+    User.where(id: session[:user_id]).first
+  end
+  helper_method :current_user  
   
-
-
-  
-
   protect_from_forgery with: :exception
 end
     

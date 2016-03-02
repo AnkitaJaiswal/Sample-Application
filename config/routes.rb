@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   
   devise_for :users
-  
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -38,7 +38,9 @@ Rails.application.routes.draw do
   devise_scope :user do
    delete "/users/sign_out" => "devise/sessions#destroy"
   end
-  
+  devise_scope :user do
+   get "sign_up", to: "devise/sessions#new"
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do
