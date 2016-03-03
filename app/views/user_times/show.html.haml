@@ -1,0 +1,8 @@
+%p#notice= notice 
+
+%p
+  %strong Current time:
+  = @user_time.current_time 
+
+= link_to 'Edit', edit_user_time_path(@user_time) 
+= link_to 'Back', user_times_path 

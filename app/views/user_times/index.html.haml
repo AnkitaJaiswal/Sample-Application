@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%h1 Listing User Times
+
+%table
+  %thead
+    %tr
+      %th Current time
+      - @user_times.each do |user_time|
+        %td= user_time.current_time 
+        %td= link_to 'Show', user_time
+        %td= link_to 'Edit', edit_user_time_path(user_time)
+        %td= link_to 'Destroy', user_time, method: :delete, data: { confirm: 'Are you sure?' }
+
+= link_to 'New User time', new_user_time_path 
