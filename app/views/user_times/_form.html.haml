@@ -1,0 +1,15 @@
+= form_for(@user_time) do |f|
+  - if @user_time.errors.any?
+    #error_explanation
+  %h2
+    = pluralize(@user_time.errors.count, "error")
+    prohibited this user_time from being saved:
+  %ul
+    - @user_time.errors.full_messages.each do |message|
+      %li= message
+  .field
+  = f.label :current_time, "*Current Time (HH:MM:SS)"
+  %br
+    = f.text_field :current_time
+  .actions
+    = f.submit
