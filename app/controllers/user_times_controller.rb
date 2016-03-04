@@ -10,6 +10,7 @@ class UserTimesController < ApplicationController
   # GET /user_times/1
   # GET /user_times/1.json
   def show
+    user_time = UserTime.find_by_id(params[:id])
   end
 
   # GET /user_times/new
