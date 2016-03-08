@@ -16,19 +16,17 @@ describe UserTimesController do
 
   describe "GET show" do
     before :each do
-      it "assigns all user_time as @user_time" do
-        user_time = FactoryGirl.create(:user_time)
+      it "assigns the requested user_time as @user_time" do
+        user_time = FactoryGirl.build(:user_time)
         get :show, {:id => user_time.id}
         assigns(:user_times).should eq([user_time])
-        #puts "user_time.inspect :- "
-        #puts user_time.inspect
       end 
     end
   end
 
   describe "GET new" do
     before(:each) do
-    it "assigns a new user_time as @user_time" 
+    it "assigns a new user_time as @user_time"  
       get :new
       assigns(:user_time).should be_a_new(UserTime)
     end 
@@ -52,15 +50,22 @@ describe UserTimesController do
   end 
 
   describe "DELETE destroy" do
-   before :each do
-      @user_time = FactoryGirl(:user_time)
-    end
+    before :each do
+      it "destroys the requested user_time" do
+        @user_time = FactoryGirl(:user_time)
+        expect {
+          delete :destroy, {:id => user_time.id}
+        }.to change(Group, :count).by(-1)
+      end
+    end  
   end  
 
   describe "PUT update" do
     before :each do
-      @user_time = FactoryGirl(:user_time)
-      @user.reload
+      it "updates the requested user_time" do
+       @user_time = UserTime.create!    
+       @user.reload
+      end 
     end 
   end   
 end 
