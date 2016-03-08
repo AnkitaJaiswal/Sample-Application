@@ -1,6 +1,6 @@
 
 FactoryGirl.define do
-  factory :user_time do
-    current_time = "12:7:5"
+  factory :user_time do |f|
+    current_time = "22:22:22"
   end
 end

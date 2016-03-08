@@ -2,19 +2,27 @@ require 'spec_helper'
 
 describe UserTimesController do
 
+
+
   describe "GET index" do
-    it "assigns all user_times as @user_times" do
-      user_time = FactoryGirl.build(:user_time)
-      get :index
-      :user_times 
+    before :each do
+     it "assigns all user_times as @user_times" do
+       user_time = FactoryGirl.create(:user_time)
+       get :index
+       assigns(:user_times).should eq([user_time]) 
+      end 
     end
   end
 
   describe "GET show" do
-    it "assigns all user_time as @user_time" do
-      user_time = FactoryGirl.build(:user_time)
-      puts "user_time.inspect :- "
-      puts user_time.inspect
+    before :each do
+      it "assigns all user_time as @user_time" do
+        user_time = FactoryGirl.create(:user_time)
+        get :show, {:id => user_time.id}
+        assigns(:user_times).should eq([user_time])
+        #puts "user_time.inspect :- "
+        #puts user_time.inspect
+      end 
     end
   end
 
