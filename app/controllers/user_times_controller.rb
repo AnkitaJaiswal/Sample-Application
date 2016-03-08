@@ -70,6 +70,6 @@ class UserTimesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_time_params
-      params.require(:user_time).permit(:current_time)
+      params.permit( :current_time)
     end
 end

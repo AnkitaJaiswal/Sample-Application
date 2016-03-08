@@ -17,12 +17,13 @@ describe UserTimesController do
   describe "GET show" do
     before :each do
       it "assigns the requested user_time as @user_time" do
-        user_time = FactoryGirl.build(:user_time)
+        user_time = FactoryGirl.create(:user_time)
         get :show, {:id => user_time.id}
-        assigns(:user_times).should eq([user_time])
+        assigns(:user_times).should eq([user_time]) 
       end 
     end
   end
+
 
   describe "GET new" do
     before(:each) do
@@ -35,8 +36,9 @@ describe UserTimesController do
   describe "POST create" do
     context "with valid params" do
       it  "creates a new user_time" do
+        params = FactoryGirl.attributes_for(:user_time)
         expect {
-          params =  FactoryGirl.attributes_for(:user_time)
+          post :create, {:user_time => params}
         }.to change(UserTime, :count).by(0) 
       end
     end
@@ -48,6 +50,8 @@ describe UserTimesController do
       end
     end
   end 
+
+
 
   describe "DELETE destroy" do
     before :each do
@@ -63,8 +67,8 @@ describe UserTimesController do
   describe "PUT update" do
     before :each do
       it "updates the requested user_time" do
-       @user_time = UserTime.create!    
-       @user.reload
+        put :update, id: @user_time, contact: FactoryGirl.attributes_for(:user_time)
+        assigns(:user_time).should eq(@user_time) 
       end 
     end 
   end   
