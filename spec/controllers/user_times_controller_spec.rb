@@ -19,7 +19,7 @@ describe UserTimesController do
       it "assigns the requested user_time as @user_time" do
         user_time = FactoryGirl.create(:user_time)
         get :show, {:id => user_time.id}
-        assigns(:user_times).should eq([user_time]) 
+        assigns(:user_time).should eq([user_time]) 
       end 
     end
   end
