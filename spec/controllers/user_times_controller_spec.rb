@@ -1,6 +1,8 @@
 require 'spec_helper'
 
+
 describe UserTimesController do
+
 
 
 
@@ -33,23 +35,16 @@ describe UserTimesController do
     end 
   end
 
-  describe "POST create" do
-    context "with valid params" do
-      it  "creates a new user_time" do
-        params = FactoryGirl.attributes_for(:user_time)
-        expect {
-          post :create, {:user_time => params}
-        }.to change(UserTime, :count).by(0) 
-      end
-    end
-    context "with invalid params" do
-      it "assigns a newly created but unsaved user_time as @user_time" do
-        expect {
-          params =  FactoryGirl.attributes_for(:user_time)
-        }.to change(UserTime, :count).by(0)
-      end
-    end
-  end 
+  
+
+  describe 'create' do
+    before(:each) do
+      it 'creates a new user_time"' do
+        post :create, FactoryGirl.attributes_for(:post, user: @user_time)
+        response.should be_success
+      end  
+    end  
+  end
 
 
 
