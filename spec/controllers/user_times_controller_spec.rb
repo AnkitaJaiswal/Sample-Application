@@ -79,9 +79,10 @@ describe UserTimesController do
     describe "with valid params"
       before :each do
         it "updates the requested user_time" do
-          user_time = UserTime.create! valid attributes
-          UserTime.any_instance.should_receive(:update)
+          user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
+          params[:current_time] = "user_time"
           put :update, {:id => user_time.id, :user_time => params}
+          user_time.reload
         end
       end 
     end   
@@ -90,7 +91,6 @@ describe UserTimesController do
         it "assigns the user_time as @user_time" do
         put :update, {:id => user_time.id, :user_time => params} 
         assigns(:user_time).should eq(user_time)
-        user_time.reload  
       end 
     end 
   end      
