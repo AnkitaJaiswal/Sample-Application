@@ -2,19 +2,21 @@ require 'spec_helper'
 
 
 describe UserTimesController do
+ 
 
 
 
 
   describe "GET index" do
-    before :each do
-     it "assigns all user_times as @user_times" do
-       user_time = FactoryGirl.create(:user_time)
-       get :index
-       assigns(:user_times).should eq([user_time]) 
+
+    before(:each) do
+      it "assigns all user_times as @user_times" do
+        user_time = FactoryGirl.create(:user_time)
+        get :index
+        assigns(:user_times).should eq([user_time]) 
       end 
     end
-  end
+  end  
 
   describe "GET show" do
     before :each do
@@ -51,12 +53,10 @@ describe UserTimesController do
     end  
     context "with invalid params" do
       before :each do
-        it "assigns a newly created but unsaved user_time as @user_time" do
-          expect {
-            post :create, user_time: FactoryGirl.attributes_for(:user_time)
-          }.to change(UserTime, :count).by(0)
-          assigns(:user_time).should be_a(UserTime)
-          assigns(:user_time).should_not be_persisted
+        it "does not save the new user_time" do
+         expect{
+          post :create, user_time: FactoryGirl.attributes_for(:user_time)
+         }.to_not change(UserTime,:count)
         end
       end
 
@@ -82,16 +82,13 @@ describe UserTimesController do
           user_time = UserTime.create! valid attributes
           UserTime.any_instance.should_receive(:update)
           put :update, {:id => user_time.id, :user_time => params}
-          user_time.reload
         end
       end 
     end   
     describe "with invalid params" do
       before :each do
         it "assigns the user_time as @user_time" do
-        user_time = UserTime.create! valid attributes 
-        UserTime.any_instance.stub(:save).and_return(false)
-        put :update, {:id => user_time.id, :user_time => params}  
+        put :update, {:id => user_time.id, :user_time => params} 
         assigns(:user_time).should eq(user_time)
         user_time.reload  
       end 
