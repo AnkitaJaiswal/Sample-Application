@@ -52,8 +52,11 @@ describe UserTimesController do
     context "with invalid params" do
       before :each do
         it "assigns a newly created but unsaved user_time as @user_time" do
-          post :create, user_time: FactoryGirl.attributes_for(:user_time)
-          assigns(:user_time).should be_a_new(UserTime)
+          expect {
+            post :create, user_time: FactoryGirl.attributes_for(:user_time)
+          }.to change(UserTime, :count).by(0)
+          assigns(:user_time).should be_a(UserTime)
+          assigns(:user_time).should_not be_persisted
         end
       end
 
