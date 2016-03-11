@@ -21,7 +21,7 @@ describe UserTimesController do
       it "assigns the requested user_time as @user_time" do
         user_time = FactoryGirl.create(:user_time)
         get :show, {:id => user_time.id}
-        assigns(:user_time).should eq([user_time]) 
+        assigns(:user_time).should eq(user_time) 
       end 
     end
   end
@@ -37,14 +37,25 @@ describe UserTimesController do
 
   
 
-  describe 'create' do
-    before(:each) do
-      it 'creates a new user_time"' do
-        post :create, FactoryGirl.attributes_for(:post, user: @user_time)
-        response.should be_success
-      end  
+  describe "POST create" do
+    context "with valid params" do
+      before :each do
+        it  "creates a new user_time" do
+          
+          expect {
+            post :create, user_time: FactoryGirl.attributes_for(:user_time)
+          }.to change(UserTime, :count).by(1) 
+        end
+      end 
     end  
-  end
+    context "with invalid params" do
+      it "assigns a newly created but unsaved user_time as @user_time" do
+        expect {
+          params =  FactoryGirl.attributes_for(:user_time)
+        }.to change(UserTime, :count).by(0)
+      end
+    end
+  end 
 
 
 
@@ -60,11 +71,12 @@ describe UserTimesController do
   end  
 
   describe "PUT update" do
-    before :each do
-      it "updates the requested user_time" do
-        put :update, id: @user_time, contact: FactoryGirl.attributes_for(:user_time)
-        assigns(:user_time).should eq(@user_time) 
-      end 
-    end 
+    context "valid attributes" 
+      before :each do 
+        it "updates the requested user_time" do
+          put :update, id: @user_time, user_time: FactoryGirl.attributes_for(:user_time)
+          assigns(:user_time).should eq(@user_time) 
+        end
+      end  
   end   
 end 
