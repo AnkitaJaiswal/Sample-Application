@@ -52,11 +52,11 @@ describe UserTimesController do
     context "with invalid params" do
       before :each do
         it "assigns a newly created but unsaved user_time as @user_time" do
-          expect {
-            post :create, user_time: FactoryGirl.attributes_for(:user_time)
-          }.to_not change(UserTime, :count)
+          post :create, user_time: FactoryGirl.attributes_for(:user_time)
+          assigns(:user_time).should be_a_new(UserTime)
         end
       end
+
   end 
 
 
@@ -73,12 +73,25 @@ describe UserTimesController do
   end  
 
   describe "PUT update" do
-    before :each do 
-      it "updates the requested user_time" do
-        put :update, id: @user_time, user_time: FactoryGirl.attributes_for(:user_time)
-        assigns(:user_time).should eq(@user_time)
-        @user_time.reload
-      end
-    end  
-  end    
+    describe "with valid params"
+      before :each do
+        it "updates the requested user_time" do
+          user_time = UserTime.create! valid attributes
+          UserTime.any_instance.should_receive(:update)
+          put :update, {:id => user_time.id, :user_time => params}
+          user_time.reload
+        end
+      end 
+    end   
+    describe "with invalid params" do
+      before :each do
+        it "assigns the user_time as @user_time" do
+        user_time = UserTime.create! valid attributes 
+        UserTime.any_instance.stub(:save).and_return(false)
+        put :update, {:id => user_time.id, :user_time => params}  
+        assigns(:user_time).should eq(user_time)
+        user_time.reload  
+      end 
+    end 
+  end      
 end 
