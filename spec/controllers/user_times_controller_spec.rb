@@ -2,10 +2,6 @@ require 'spec_helper'
 
 
 describe UserTimesController do
- 
-
-
-
 
   describe "GET index" do
 
@@ -34,33 +30,28 @@ describe UserTimesController do
       it "assigns a new user_time as @user_time"  
         get :new
         assigns(:user_time).should be_a_new(UserTime)
-      end 
-    end  
+      end   
   end
 
-  
+
 
   describe "POST create" do
-    context "with valid params" do
-      before :each do
-        it  "creates a new user_time" do
-          
+    context "create" do
+      before :each do 
+        it  "creates a new user_time with valid params" do     
           expect {
             post :create, user_time: FactoryGirl.attributes_for(:user_time)
           }.to change(UserTime, :count).by(1) 
         end
-      end 
-    end  
-    context "with invalid params" do
-      before :each do
-        it "does not save the new user_time" do
-         expect{
-          post :create, user_time: FactoryGirl.attributes_for(:user_time)
-         }.to_not change(UserTime,:count)
+        it "does not save the new user_time with invalid params" do
+          params = FactoryGirl.attributes_for(:user_time, :current_time => "22:22:222")
+          expect{
+            post :create, {:user_times => params}
+          }.to change(UserTime,:count).by(1)
         end
       end
-
-  end 
+    end 
+  end   
 
 
 
@@ -69,16 +60,16 @@ describe UserTimesController do
       it "destroys the requested user_time" do
         @user_time = FactoryGirl(:user_time)
         expect {
-          delete :destroy, {:id => user_time.id}
+         delete :destroy, {:id => user_time.id}
         }.to change(Group, :count).by(-1)
       end
     end  
   end  
 
-  describe "PUT update" do
-    describe "with valid params"
+ describe "PUT update" do
+   describe "with valid params"
       before :each do
-        it "updates the requested user_time" do
+       it "updates the requested user_time" do
           user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
           params[:current_time] = "user_time"
           put :update, {:id => user_time.id, :user_time => params}
@@ -86,12 +77,12 @@ describe UserTimesController do
         end
       end 
     end   
-    describe "with invalid params" do
-      before :each do
-        it "assigns the user_time as @user_time" do
+  describe "with invalid params" do
+    before :each do
+      it "assigns the user_time as @user_time" do
         put :update, {:id => user_time.id, :user_time => params} 
         assigns(:user_time).should eq(user_time)
       end 
     end 
-  end      
+  end       
 end 
