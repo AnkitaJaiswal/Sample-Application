@@ -81,8 +81,8 @@ describe UserTimesController do
   describe "with invalid params" do
     before :each do
       it "assigns the user_time as @user_time" do
-        user_time = FactoryGirl.create(:user_time, :current_time => "22:22:223")
-        params[:current_time] = "222:22:233"
+        user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
+        params[:current_time] = "22:22:223"
         put :update, {:id => user_time.id, :user_time => params}
         assigns(:user_time).should eq(user_time)
         user_time.reload
