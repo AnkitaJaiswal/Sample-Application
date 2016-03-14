@@ -68,15 +68,15 @@ describe UserTimesController do
 
  describe "PUT update" do
    describe "with valid params"
-     before :each do
+      before :each do
        it "updates the requested user_time" do
-         user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
-         params[:current_time => "22:22:22"] = "user_time"
-         put :update, {:id => user_time.id, :user_time => params}
-         user_time.reload
+          user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
+          params[:current_time] = "22:22:22"
+          put :update, {:id => user_time.id, :user_time => params}
+          user_time.reload
         end
       end 
-    end    
+    end   
   describe "with invalid params" do
     before :each do
       it "assigns the user_time as @user_time" do
