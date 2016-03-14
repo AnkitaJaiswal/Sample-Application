@@ -67,7 +67,7 @@ describe UserTimesController do
   end  
 
  describe "PUT update" do
-  "print....."
+  
    describe "with valid params"
       before :each do
        it "updates the requested user_time" do
