@@ -46,8 +46,8 @@ describe UserTimesController do
         it "does not save the new user_time with invalid params" do
           params = FactoryGirl.attributes_for(:user_time, :current_time => "22:22:222")
           expect{
-            post :create, {:user_times => params}
-          }.to change(UserTime,:count).by(1)
+            post :create, {:user_time => params}
+          }.to_not change(UserTime,:count)
         end
       end
     end 
@@ -68,19 +68,19 @@ describe UserTimesController do
 
  describe "PUT update" do
    describe "with valid params"
-      before :each do
+     before :each do
        it "updates the requested user_time" do
-          user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
-          params[:current_time] = "user_time"
-          put :update, {:id => user_time.id, :user_time => params}
-          user_time.reload
+         user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
+         params[:current_time => "22:22:22"] = "user_time"
+         put :update, {:id => user_time.id, :user_time => params}
+         user_time.reload
         end
       end 
-    end   
+    end    
   describe "with invalid params" do
     before :each do
       it "assigns the user_time as @user_time" do
-        put :update, {:id => user_time.id, :user_time => params} 
+        put :update, id: @user_time, user_time: FactoryGirl.attributes_for(:current_time => "22:22:223")
         assigns(:user_time).should eq(user_time)
       end 
     end 
