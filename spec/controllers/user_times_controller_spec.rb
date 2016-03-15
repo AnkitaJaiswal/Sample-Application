@@ -86,7 +86,7 @@ describe UserTimesController do
         params[:current_time] = "22:22:223"
         put :update, {:id => user_time.id, :user_time => params}
         user_time.reload
-        user_time.current_time.should_not == "23:22:23"
+        user_time.current_time.should_not == "22:22:22"
         assigns(:user_time).should eq(user_time)
       end 
     end 
