@@ -71,8 +71,9 @@ describe UserTimesController do
       before :each do
        it "updates the requested user_time" do
           user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
-          params[:current_time] = "22:22:22"
+          params[:current_time] = "23:22:23"
           put :update, {:id => user_time.id, :user_time => params}
+          user_time.current_time.should == "23:22:23"
           user_time.reload
         end
       end 
@@ -80,8 +81,12 @@ describe UserTimesController do
   describe "with invalid params" do
     before :each do
       it "assigns the user_time as @user_time" do
-        put :update, id: @user_time, user_time: FactoryGirl.attributes_for(:current_time => "22:22:223")
+        user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
+        params[:current_time] = "22:22:223"
+        put :update, {:id => user_time.id, :user_time => params}
+        user_time.current_time.should == "22:22:223"
         assigns(:user_time).should eq(user_time)
+        user_time.reload
       end 
     end 
   end       
