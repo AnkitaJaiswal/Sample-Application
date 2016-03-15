@@ -67,6 +67,7 @@ describe UserTimesController do
   end  
 
  describe "PUT update" do
+  
    describe "with valid params"
       before :each do
        it "updates the requested user_time" do
@@ -84,7 +85,10 @@ describe UserTimesController do
         user_time = FactoryGirl.create(:user_time, :current_time => "22:22:22")
         params[:current_time] = "22:22:223"
         put :update, {:id => user_time.id, :user_time => params}
+<<<<<<< HEAD
         user_time.current_time.should == "22:22:223"
+=======
+>>>>>>> b439c6bbff2d705a14d751a9aa3eabfca2906d42
         assigns(:user_time).should eq(user_time)
         user_time.reload
       end 
