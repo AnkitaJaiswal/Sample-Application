@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe UserTimesController do
 
   describe "GET index" do
